@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Tugas 2</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <form action="">
+        <label for="nama">Nama</label>
+        <input type="text" name="nama" id="nama" required/>
+        <label for="mata-kuliah">Mata Kuliah</label>
+        <input type="text" name="mata-kuliah" id="mata-kuliah"  required/>
+        <label for="grade">Grade</label>
+        <select name="grade" id="grade" required>
+          <option value="" >-- Grade --</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+          <option value="E">E</option>
+        </select>
+
+        <button type="submit">Hitung</button>
+      </form>
+
+
+      <div id="tabel-container">
+
+<table id="tabel-data">
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Mata Kuliah</th>
+        <th>Grade</th>
+        <th>Rata-rata</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data yang akan ditambahkan akan muncul di sini -->
+    </tbody>
+    <table>
+    </div>
+    </div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.querySelector("form");
+        const tableContainer = document.querySelector("#tabel-container");
+      const tableBody = document.querySelector("#tabel-data tbody");
+  
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+  
+        // Ambil nilai dari input dan select
+        const nama = document.querySelector("#nama").value;
+        const mataKuliah = document.querySelector("#mata-kuliah").value;
+        const grade = document.querySelector("#grade").value;
+  
+        // Konversi grade menjadi angka sesuai skala yang diberikan
+        let nilai;
+        switch (grade) {
+          case "A":
+            nilai = 4;
+            break;
+          case "B":
+            nilai = 3;
+            break;
+          case "C":
+            nilai = 2;
+            break;
+          case "D":
+            nilai = 1;
+            break;
+          case "E":
+            nilai = 0;
+            break;
+          default:
+            nilai = 0; // Jika nilai tidak valid, anggap sebagai E
+            break;
+        }
+  
+        // Buat baris baru dalam tabel
+        const newRow = document.createElement("tr");
+  
+        // Tambahkan data ke dalam baris
+        newRow.innerHTML = `
+          <td>${nama}</td>
+          <td>${mataKuliah}</td>
+          <td>${grade}</td>
+          <td>${nilai}</td>
+        `;
+  
+        // Tambahkan baris ke dalam tabel di atas (sebagai elemen pertama)
+        if (tableBody.firstChild) {
+          tableBody.insertBefore(newRow, tableBody.firstChild);
+        } else {
+          tableBody.appendChild(newRow);
+        }
+  
+        // Kosongkan input setelah data ditambahkan
+        document.querySelector("#nama").value = "";
+        document.querySelector("#mata-kuliah").value = "";
+        document.querySelector("#grade").value = "A"; // Mengatur nilai default kembali ke "A"
+      });
+    });
+  </script>
+  
+</html>
